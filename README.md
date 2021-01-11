@@ -118,11 +118,10 @@ configurable options, run **cpac --help** or **cpac run --help** for the full ma
 *Note:* **cpac** and **cpac run** are two different commands, with different configuration options.
 
 ### Example: *--Please put the specific filenames and dir.*
- $ cpac run <DATA_DIR> <OUTPUT_DIR> test_config  
  
- $ cpac run <DATA_DIR> <OUTPUT_DIR> participant
- 
- $ cpac run <DATA_DIR> <OUTPUT_DIR> participant --data_config_file <DATA_CONFIG> --pipeline_file <PIPELINE_CONFIG>
+    $ cpac run <DATA_DIR> <OUTPUT_DIR> test_config   
+    $ cpac run <DATA_DIR> <OUTPUT_DIR> participant
+    $ cpac run <DATA_DIR> <OUTPUT_DIR> participant --data_config_file <DATA_CONFIG> --pipeline_file <PIPELINE_CONFIG>
 
 ### Troubleshooting
 TODO: Compile a table of all errors encountered and their apparent root causes.
