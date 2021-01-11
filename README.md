@@ -87,7 +87,7 @@ This may take some time, as there are a large number of underlying package depen
 
     $ cpac --version
 
-## C-PAC Usage *please upload config scripts and sample data.*
+## C-PAC Usage *--Please upload config scripts and sample data.*
 *Note:* for official documentation, please reference: https://fcp-indi.github.io/docs/latest/user/index#user-guide-index
 
 Commands used to preprocess data vary depending on what you are trying to accomplish. In general, the command you will 
@@ -99,7 +99,7 @@ use to test configurations and run pipelines is **cpac run**. There are two conf
 These are YAML files, and can be generated via **test_config**. To see example configurations, please see downloads here:
 https://www.nitrc.org/projects/cpac. To dry-run C-PAC on a dataset and generate configuration files, the minimal command is:
 
-    $ cpac run <DATA_DIR> <OUTPUT_DIR> test_config
+    $ cpac run <DATA_DIR> <OUTPUT_DIR> test_config   
 
 This will execute the pre-validation steps and generate a template for the pipeline config and data config, which you can edit
 yourself depending on your pipeline requirements and system architecture. The minimal command to actually run the pipeline 
@@ -117,5 +117,12 @@ configurable options, run **cpac --help** or **cpac run --help** for the full ma
 
 *Note:* **cpac** and **cpac run** are two different commands, with different configuration options.
 
+### Example: *--Please put the specific filenames and dir.*
+ $ cpac run <DATA_DIR> <OUTPUT_DIR> test_config  
+ $ cpac run <DATA_DIR> <OUTPUT_DIR> participant
+ $ cpac run <DATA_DIR> <OUTPUT_DIR> participant --data_config_file <DATA_CONFIG> --pipeline_file <PIPELINE_CONFIG>
+
 ### Troubleshooting
 TODO: Compile a table of all errors encountered and their apparent root causes.
+
+
