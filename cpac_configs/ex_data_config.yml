@@ -1,0 +1,17 @@
+# CPAC Data Configuration File
+# Version 1.6.1.a
+#
+# http://fcp-indi.github.io for more info.
+#
+# Tip: This file can be edited manually with a text editor for quick modifications.
+
+- subject_id: s1
+  unique_id: ses-1
+  anat: /home/user/cpac/input_data/s1/anat/s1_T1w.nii
+  func:
+    rest_1:
+      scan: /home/user/cpac/input_data/s1/func/s1_task_1.nii
+  site: site-1
+
+
+

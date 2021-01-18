@@ -166,21 +166,44 @@ or **cpac run --help** to read the full manual pages for configuration options (
 
 <a name="section-2-2"></a>
 ### Examples
-The following examples have all directories under a *cpac* directory, with *configs* for configuration files, *data* for the 
-input unprocessed fMRI scans, and *output* for the location of logs and preprocessed output data. Remember that if you don't 
+The following examples have all directories under a *'cpac'* directory, with *'configs'* for configuration files, *'data'* for the 
+input unprocessed fMRI scans, and *'output'* for the location of logs and preprocessed output data. Remember that if you don't 
 reference the absolute paths of these directories and don't set custom bindings for the paths, you will need to execute 
-the **cpac run** command at the level where the directory *cpac* exists.
+the **cpac run** command at the level where the directory *'cpac'* exists.
 
     # Minimal test_config command:
     $ cpac run cpac/data/s1 cpac/output test_config
+    
     # Command to generate a pipeline config using a data config:
     $ cpac run cpac/data/s1 cpac/output test_config --data_config_file cpac/config/data_config.yml
+    
     # Minimal participant command:
     $ cpac run cpac/data/s1 cpac/output participant
+    
     # Command to preprocess a single subject (s1) with data and pipeline configs
     $ cpac run cpac/data/s1 cpac/output participant --data_config_file cpac/config/data_config.yml --pipeline_file cpac/config/pipeline_config.yml
+    
     # Fully configured group command:
     $ cpac run cpac/data/s1 cpac/output group --group_file cpac/config/group_config.yml --data_config_file cpac/config/data_config.yml --pipeline_file cpac/config/pipeline_config.yml
 
+
 <a name="section-2-3"></a>
 ### Troubleshooting
+Below is a list of the errors I've encountered so far, and their causes:
+
+* *Could not create the working directory: /working*
+    * Change the 'workingDirectory' variable in pipeline config (ln 55 in the example config).
+    
+* *OSError: Could not create directory /working/<SUBJECT_NAME>_ses-1*
+    * C-PAC can't write to the working directory, try using pre-existing directory such as '/tmp'.
+    
+* *OSError: Didn't find any files in <SUBJECT_DIR>. Please verify that the path is typed correctly, that you have read access to the directory, and that it is not empty.*
+    * The format of the input data is not BIDS compliant, so C-PAC can't find the data files. Either reformat the input 
+    data, or use a data config that explicitly states where the anatomical and functional data exists.
+
+* *PermissionError: [Errno 13] Permission denied: '<OUTPUT_DIR>/cpac_pipeline_config_<TIME_STAMP>.yml'*
+    * C-PAC has insufficient permission to write output to your specified output directory. If you are specifying input or 
+    output on an external drive, try pointing the output directory to somewhere in the user's home directory.
+
+* *FileNotFoundError: File <SUBJECT_DIR>/<NII_FILE> does not exist!*
+    * The data config is incorrect or not specified, check 'anat' and 'scan' variables are accurate.
