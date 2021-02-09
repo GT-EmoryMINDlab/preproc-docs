@@ -63,7 +63,7 @@ pipelines ensures that any python package changes will not unintentionally break
 easiest to configure via the wrapper package *virtualenvwrapper*, which abstracts out some of the configuration.
 Install the wrapper package:
 
-    $ pip3 install virtualenvwrapper
+    $ pip3 install virtualenvwrapper --user
 
 Verify installation:
 
@@ -88,6 +88,8 @@ If you're ever unsure if you're currently working in your desired virtual enviro
 is in your virtualenv directory (e.g., */usr/bin/python3* vs. */home/<USER_NAME>/.virtualenvs/<VENV_NAME>/bin/python3*):
 
     $ which python3
+    
+If you have trouble with this section, please see the [Troubleshooting](#section-2-3) section.
 
 
 <a name="section-1-4"></a>
@@ -186,10 +188,18 @@ the **cpac run** command at the level where the directory *'cpac'* exists.
     # Fully configured group command:
     $ cpac run cpac/data/s1 cpac/output group --group_file cpac/config/group_config.yml --data_config_file cpac/config/data_config.yml --pipeline_file cpac/config/pipeline_config.yml
 
+If you'd like to test out any of the above commands on sample data, there is a truncated fMRI sample in the *'cpac_sample_data'* 
+folder of *'preproc-docs'*. So using only the files in this repository, you could run the command for a single subject from 
+the root of this repository directory like so:
+
+    $ cpac run cpac_sample_data output participant --data_config_file cpac_configs/ex_data_config.yml --pipeline_file cpac_configs/ex_pipeline_config.yml
+
+Note that in this case, you would still need to change the paths in cpac_configs/ex_data_config.yml to the actual location of this 
+repository on your computer.
 
 <a name="section-2-3"></a>
 ### Troubleshooting
-Below is a list of the errors I've encountered so far, and their causes:
+Below is a list of the C-PAC errors I've encountered so far, and their causes:
 
 * *Could not create the working directory: /working*
     * Change the 'workingDirectory' variable in pipeline config (ln 55 in the example config).
@@ -207,3 +217,39 @@ Below is a list of the errors I've encountered so far, and their causes:
 
 * *FileNotFoundError: File <SUBJECT_DIR>/<NII_FILE> does not exist!*
     * The data config is incorrect or not specified, check 'anat' and 'scan' variables are accurate.
+    
+If you're having trouble creating virtual environments for python, the following points may be helpful:
+    
+* Avoid running anything in python as root ('sudo') if possible. If you see a permission error while installing, it could 
+be caused by installing something related to python as root. Try uninstalling and reinstalling again.
+* The '--user' flag from Section 1.3 is used to install virtulenvwrapper for a singular user. You may otherwise see permission errors.
+
+If the package was installed successfully but you receive an error when attempting to create a virtual environment with 
+'mkvirtualenv', your shell may not know the location of the virtualenvwrapper script. In your terminal, you can try to find 
+the script and execute it:
+
+    # Find the location of the script
+    $ which virtualenvwrapper.sh
+    
+    # Execute the script, location depends on the path returned above
+    $ source /usr/local/bin/virtualenvwrapper.sh
+
+If "which virtualenvwrapper.sh" returns a "virtualenvwrapper.sh not found" message, you may need to configure your PATH 
+variable properly, as it probably can't find the parent directory of the virtualenvwrapper installation. You can try something 
+like the below command if you know where the virtualenvwrapper.sh is located:
+
+    # Add a new path to your PATH variable, where <USER_NAME> is your username
+    
+    # Probable MacOS location
+    $ export PATH="/home/<USER_NAME>/.local/bin:$PATH"
+    
+    # Probable Linux location
+    $ export PATH="/usr/bin:$PATH"
+
+If you can create virtual environments after running the above commands, you may want to add the script location to your 
+shell configuration file. If nothing above solved your issue, two additional environment variables can be specified in your 
+shell configuration that may resolve the issue (for bash this is ~/.bashrc, other shells may use a different file).
+
+    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+    export WORKON_HOME=$HOME/.virtualenvs
+    source /usr/local/bin/virtualenvwrapper.sh

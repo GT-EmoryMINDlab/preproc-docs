@@ -7,10 +7,10 @@
 
 - subject_id: s1
   unique_id: ses-1
-  anat: /home/user/cpac/input_data/s1/anat/s1_T1w.nii
+  anat: /home/user/preproc-docs/cpac_sample_data/anat/s1_anat.nii.gz
   func:
     rest_1:
-      scan: /home/user/cpac/input_data/s1/func/s1_task_1.nii
+      scan: /home/user/preproc-docs/cpac_sample_data/func/s1_rest.nii.gz
   site: site-1
 
 
