@@ -1,4 +1,4 @@
-# preproc-docs
+# C-PAC fMRI data preproc-docs
 Documentation and examples for preprocessing human brain fMRI datasets using C-PAC pipeline.
 
 # Table of Contents
